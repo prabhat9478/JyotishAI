@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - ASTRO_ENGINE_URL=http://astro-engine:8000
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - ./web/.env.local
+    depends_on:
+      - astro-engine
+      - redis
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+      - /app/.next
+
+  astro-engine:
+    build:
+      context: ./astro-engine
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./astro-engine:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  worker:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.worker
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - ASTRO_ENGINE_URL=http://astro-engine:8000
+    env_file:
+      - ./web/.env.local
+    depends_on:
+      - redis
+      - astro-engine
+    command: node dist/workers/index.js
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  redis_data:
