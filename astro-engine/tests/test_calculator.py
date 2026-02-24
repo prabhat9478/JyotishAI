@@ -48,8 +48,8 @@ def test_julian_day_calculation():
 
     jd = calculator.calc_julian_day(birth_datetime, utc_offset_hours=5.5)
 
-    # Julian Day should be around 2449407 for Feb 18, 1994
-    assert 2449407.0 < jd < 2449408.0, f"Julian Day {jd} is outside expected range"
+    # Julian Day for Feb 18, 1994 17:37 UTC ≈ 2449402.23
+    assert 2449401.5 < jd < 2449403.0, f"Julian Day {jd} is outside expected range"
     print(f"✓ Julian Day: {jd}")
 
 

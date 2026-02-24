@@ -175,4 +175,17 @@ jyotish-ai/
 - Relation tagging (self, spouse, parent, child, sibling)
 
 ## Environment Variables
-See .env.example — never commit actual keys.
+See web/.env.local — never commit this file. It is gitignored.
+
+## Supabase Project
+- Account: prabhat9478
+- URL: https://mzzqsjdcqhfpjhtlrejg.supabase.co
+- Anon key is already in web/.env.local
+- Get service role key from: Supabase Dashboard → Project Settings → API → service_role
+
+## Infrastructure
+- Database: Supabase PostgreSQL (cloud, free tier)
+- Redis: Upstash (cloud, free tier) — add REDIS_URL to .env.local once created
+- astro-engine: run locally with `cd astro-engine && python main.py` (no Docker needed)
+- Frontend: Next.js dev server `cd web && npm run dev`
+- Deployment: Dokploy on adaptivesmartsystems.cc

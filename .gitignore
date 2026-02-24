@@ -1,0 +1,22 @@
+# Environment files - NEVER commit these
+.env.local
+.env.*.local
+.env
+
+# Next.js
+web/.next/
+web/out/
+web/node_modules/
+
+# Python
+astro-engine/__pycache__/
+astro-engine/*.pyc
+astro-engine/venv/
+astro-engine/.venv/
+astro-engine/ephe/  # Swiss Ephemeris data files (large, download separately)
+
+# Misc
+.DS_Store
+*.log
+node_modules/
+dist/
